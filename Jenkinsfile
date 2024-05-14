@@ -16,7 +16,7 @@ pipeline {
         stage("Clone code") {
             steps {
                 script {
-                    git 'https://github.com/danielalejandrohc/cargotracker.git';
+                    git 'https://github.com/Lehar1107/nexus_jenkins_docker_springboot.git';
                 }
             }
         }
