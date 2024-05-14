@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-     imageName = "lowerupper"
-     imageTag = "1.0.$env.BUILD_NUMBER"
-  }
+        imageName = "lowerupper"
+        imageTag = "1.0.${env.BUILD_NUMBER}"
+    }
 
     stages {
         stage('Get Code') {
@@ -13,14 +13,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                 sh 'C:\\ProgramData\\chocolatey\\lib\\maven\\apache-maven-3.9.6\\bin\\mvn clean install -DskipTests=true'
+                sh 'C:\\ProgramData\\chocolatey\\lib\\maven\\apache-maven-3.9.6\\bin\\mvn clean install -DskipTests=true'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                     def imageName = "lowerupper"
-                     def imageTag = "latest"
+                    def imageName = "lowerupper"
+                    def imageTag = "latest"
                     
                     def dockerfile = """
                         FROM openjdk:17-jdk
@@ -64,52 +64,5 @@ pipeline {
                 }
             }
         }
-		
-		
-
-
-        // stage('Deploy Application in kbernetes') {
-        //     // environment {
-        //     //     NEXUS_CREDENTIALS = credentials('nexus-credentials')
-        //     // }
-        //     steps {
-        //         script {
-        //             // sh "sed -i 's#<regex>#<replacement>#g' file_name"
-        //             // kubectl apply -f ./deployment.yaml
-        //             // if you apply deployment from kubenets client machine then
-        //             sh "kubectl --kubeconfig=/home/main/Desktop/kubeconfig/config apply -f ./deployment.yaml"
-        //         }
-        //     }
-        // }
-
-        // stage('Push Docker Image to Nexus') {
-        //     steps {
-        //         script {
-        //             def imageName = "kafka-monitor"
-        //             def imageTag = "latest"
-        //             def nexusUrl = "http://localhost:8081"
-        //             def nexusRepository = "maven-snapshots"
-        //             def nexusCredentialsId = "nexus-credentials"
-
-        //             def dockerImage = "${imageName}:${imageTag}"
-        //             def nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
-                    
-        //             withCredentials([usernamePassword(credentialsId: nexusCredentialsId, usernameVariable: 'admin', passwordVariable: 'Nexus@123')]) {
-        //                 sh "docker tag ${dockerImage} ${nexusImage}"
-        //                 sh "docker login -u ${NEXUS_USERNAME} -p ${NEXUS_PASSWORD} ${nexusUrl}"
-        //                 sh "docker push ${nexusImage}"
-        //             }
-        //         }
-        //     }
-        // }
     }
-    // post {
-    //     always {
-    //         // Clean up Docker images after the pipeline run
-    //         script {
-    //             sh "docker rmi ${NEXUS_URL}/${NEXUS_REPO}/my-java-app:${IMAGE_TAG}"
-    //             sh "docker logout ${NEXUS_URL}"
-    //         }
-    //     }
-    // }
 }
