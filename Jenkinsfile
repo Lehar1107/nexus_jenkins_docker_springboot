@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean install -DskipTests=true'
+                 sh 'C:\\ProgramData\\chocolatey\\lib\\maven\\apache-maven-3.9.6\\bin\\mvn clean install -DskipTests=true'
             }
         }
         stage('Build Docker Image') {
