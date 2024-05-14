@@ -24,9 +24,9 @@ pipeline {
                     
                     def dockerfile = """
                         FROM openjdk:17-jdk
-                        COPY target/springboot-docker-nexus-0.0.1-SNAPSHOT.jar /app/lowertoupperCase-0.0.1-SNAPSHOT.jar
+                        COPY target/springboot-docker-nexus-0.0.1-SNAPSHOT.jar /app/my-spring-boot-app.jar
                         WORKDIR /app
-                        ENTRYPOINT ["java", "-jar", "lowertoupperCase-0.0.1-SNAPSHOT.jar"]
+                        ENTRYPOINT ["java", "-jar", "my-spring-boot-app.jar"]
                     """
                     
                     writeFile file: 'Dockerfile', text: dockerfile
@@ -46,8 +46,7 @@ pipeline {
                 script {
                     def nexusUrl = "localhost:8082"
                     def nexusRepository = "docker-hosted"
-                    def nexusrepourl = "https://192.168.1.76:8082/repository/docker-hosted/" 
-                    // http://localhost:8083/repository/docker-hosted/"
+                    def nexusrepourl = "http://192.168.1.76:8082/repository/docker-hosted/" 
                     def dockerImage = "${imageName}:${imageTag}"
                     def nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
 
