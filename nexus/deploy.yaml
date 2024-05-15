@@ -12,9 +12,7 @@ spec:
   selector:
     app: nexus
   type: NodePort
-
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,7 +31,7 @@ spec:
     spec:
       containers:
       - image: nginx
-        name: nexus
+        name: nginx
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

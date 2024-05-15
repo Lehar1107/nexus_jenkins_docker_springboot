@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitguestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Lehar1107/nexus_jenkins_docker_springboot.git'
+    targetRevision: HEAD
+    path: gitguestbook
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argoCD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
