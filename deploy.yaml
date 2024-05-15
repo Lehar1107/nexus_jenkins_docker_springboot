@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nexus
+  name: nexus
+spec:
+  selector:
+    matchLabels:
+      app: nexus
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+      - image: nginx
+        name: nexus
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion:
+kind: Service
+metadata:
+  labels:
+    app: nexus
+  name: nexus-service
+spec:
+  ports:
+  - ports: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: nexus
+  type: NodePort
