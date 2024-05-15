@@ -16,7 +16,7 @@ pipeline {
                 bat 'mvn clean install -DskipTests=true'
             }
         }
-		stage('Build Docker Image') {
+	stage('Build Docker Image') {
             steps {
                 script {
                     def imageName = "lowerupper"
@@ -36,7 +36,7 @@ pipeline {
                 }
             }
         }
-		stage('Push Docker Image to Nexus') {
+	stage('Push Docker Image to Nexus') {
             environment {
                 NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
             }
