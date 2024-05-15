@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'F:\\nexus_jenkins\\springboot-docker-nexus\\springboot-docker-nexus\\mvn clean install -DskipTests=true'
+                bat 'F:\\nexus_jenkins\\springboot-docker-nexus\\springboot-docker-nexus\\mvn clean install -DskipTests=true'
             }
         }
      }
