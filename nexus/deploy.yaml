@@ -20,18 +20,3 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
----
-apiVersion:
-kind: Service
-metadata:
-  labels:
-    app: nexus
-  name: nexus-service
-spec:
-  ports:
-  - ports: 8080
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: nexus
-  type: NodePort
