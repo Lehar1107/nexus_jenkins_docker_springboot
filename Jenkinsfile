@@ -3,7 +3,7 @@ pipeline {
     environment {
         imageName = "lowerupper"
         imageTag = "1.0.${env.BUILD_NUMBER}"
-        nexusUrl = "localhost:8082"
+        nexusUrl = "localhost:8081"
         nexusRepository = "docker-hosted"
         nexusrepourl = "http://192.168.1.76:8082/repository/docker-hosted/"
     }
