@@ -19,8 +19,8 @@ pipeline {
 	stage('Build Docker Image') {
             steps {
                 script {
-                    def imageName = "lowerupper"
-                    def imageTag = "latest"
+                    //def imageName = "lowerupper"
+                    //def imageTag = "latest"
                     
                     def dockerfile = """
                         FROM openjdk:17-jdk
@@ -42,11 +42,11 @@ pipeline {
             }
             steps {
                 script {
-                    $env:nexusUrl = "localhost:8082"
-                    $env:nexusRepository = "docker-hosted"
-                    $env:nexusrepourl = "http://192.168.1.76:8082/repository/docker-hosted/" 
-                    $env:dockerImage = "${imageName}:${imageTag}"
-                    $env:nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
+                     $env:nexusUrl = "localhost:8082"
+                     $env:nexusRepository = "docker-hosted"
+                     $env:nexusrepourl = "http://192.168.1.76:8082/repository/docker-hosted/" 
+                     $env:dockerImage = "${imageName}:${imageTag}"
+                     $env:nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
 
                     withCredentials([usernamePassword(credentialsId: 'nexus-user-credentials', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
                         withEnv(["DOCKER_LOGIN=\${NEXUS_USERNAME}", "DOCKER_PASSWORD=\${NEXUS_PASSWORD}"]) {
