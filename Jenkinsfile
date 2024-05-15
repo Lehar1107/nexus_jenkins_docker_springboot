@@ -42,14 +42,18 @@ pipeline {
                 script {
                     def dockerImage = "${imageName}:${imageTag}"
                     def nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
-					def nexusCredentials = credentials('nexus-user-credentials')
-					def nexusUsername = nexusCredentials?.username
-					def nexusPassword = nexusCredentials?.password
+					
+					
+					def nexusUsername = NEXUS_CREDENTIALS?.username
+					def nexusPassword = NEXUS_CREDENTIALS?.password
+					
+					echo "Nexus Username: ${nexusUsername}"
+					echo "Nexus Password: ${nexusPassword}"
                     withCredentials([usernamePassword(credentialsId: 'nexus-user-credentials', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
                         withEnv(["DOCKER_LOGIN=${nexusUsername}", "DOCKER_PASSWORD=${nexusPassword}"]) {
-                            echo "DOCKER_USERNAME: ${nexusUsername}"
-                            echo "DOCKER_PASSWORD: ${nexusPassword}"
-                            bat 'echo ${nexusPassword} | docker login -u ${nexusUsername} --password-stdin ${nexusUrl}'
+                            echo "DOCKER_USERNAME: ${NEXUS_USERNAME}"
+                            echo "DOCKER_PASSWORD: ${NEXUS_PASSWORD}"
+                            bat 'echo %NEXUS_PASSWORD% | docker login -u %NEXUS_USERNAME% --password-stdin %nexusUrl%'
                             bat "docker tag ${dockerImage} ${nexusImage}"
                             bat "docker push ${nexusImage}"
                             bat "docker logout ${nexusUrl}"
