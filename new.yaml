@@ -18,3 +18,16 @@ spec:
         image: springboot:latest #The Docker image for building the React.js application container
         ports:
         - containerPort: 3000 #The port for the React.js application container
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service #The name of the Kubernetes Service to be created in the Kubernetes cluster
+spec:
+  selector:
+    app: react-app 
+  type: LoadBalancer #Type of the Kubernetes Service
+  ports:
+  - protocol: TCP
+    port: 3000 #Service port
+    targetPort: 3000 #The port for the Re
