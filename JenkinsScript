@@ -65,17 +65,30 @@ pipeline {
         }
         stage('Deploy Application in Kubernetes') {
             steps {
+                withCredentials([file(credentialsId: 'kubeconfig-file-id', variable: 'KUBECONFIG')]) {
                     script {
-                        // Print the kubeconfig content for debugging (remove sensitive data before using in production)
-                        //bat 'type %KUBECONFIG%'
-                        
                         // Validate the kubeconfig
-                        //bat "kubectl config view"
+                        bat "kubectl config view"
                         
                         // Apply the Kubernetes deployment
-                        bat "kubectl apply -f new.yaml"
+                        bat "kubectl apply -f new.yaml --validate=false"
                     }
                 }
             }
+        }
+        // stage('Deploy Application in Kubernetes') {
+        //     steps {
+        //             script {
+        //                 // Print the kubeconfig content for debugging (remove sensitive data before using in production)
+        //                 //bat 'type %KUBECONFIG%'
+                        
+        //                 // Validate the kubeconfig
+        //                 //bat "kubectl config view"
+                        
+        //                 // Apply the Kubernetes deployment
+        //                 bat "kubectl apply -f new.yaml"
+        //             }
+        //         }
+        //     }
     }
 }
