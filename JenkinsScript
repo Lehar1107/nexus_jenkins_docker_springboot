@@ -63,20 +63,33 @@ pipeline {
             }
 
         }
-        stage('Deploy Application in Kubernetes') {
+        stage('Deploy Application in kbernetes') {
+            environment {
+                 NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+            }
             steps {
-                //withCredentials([file(credentialsId: 'kubeconfig-file-id', variable: 'KUBECONFIG')]) {
-                    script {
-                        // Validate the kubeconfig
-                        bat "kubectl config view"
-                        
-                        // Apply the Kubernetes deployment
-                        bat "kubectl apply -f new.yaml --validate=false"
-                    }
+                script {
+                    // sh "sed -i 's#<regex>#<replacement>#g' file_name"
+                    // kubectl apply -f ./deployment.yaml
+                    // if you apply deployment from kubenets client machine then
+                    bat "kubectl apply -f ./new.yaml"
                 }
-            //}
+            }
         }
         // stage('Deploy Application in Kubernetes') {
+        //     steps {
+        //         //withCredentials([file(credentialsId: 'kubeconfig-file-id', variable: 'KUBECONFIG')]) {
+        //             script {
+        //                 // Validate the kubeconfig
+        //                 bat "kubectl config view"
+                        
+        //                 // Apply the Kubernetes deployment
+        //                 bat "kubectl apply -f new.yaml --validate=false"
+        //             }
+        //         }
+        //     //}
+        // }
+        // // stage('Deploy Application in Kubernetes') {
         //     steps {
         //             script {
         //                 // Print the kubeconfig content for debugging (remove sensitive data before using in production)
