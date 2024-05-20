@@ -63,19 +63,19 @@ pipeline {
             }
 
         }
-        stage('Deploy Application in kbernetes') {
-            environment {
-                 NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
-            }
-            steps {
-                script {
-                    // sh "sed -i 's#<regex>#<replacement>#g' file_name"
-                    // kubectl apply -f ./deployment.yaml
-                    // if you apply deployment from kubenets client machine then
-                    bat "kubectl apply -f ./new.yaml"
-                }
-            }
-        }
+        // stage('Deploy Application in kubernetes') {
+        //     // environment {
+        //     //      NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+        //     // }
+        //     steps {
+        //         script {
+        //             // sh "sed -i 's#<regex>#<replacement>#g' file_name"
+        //             // kubectl apply -f ./deployment.yaml
+        //             // if you apply deployment from kubenets client machine then
+        //             bat "kubectl apply -f ./new.yaml"
+        //         }
+        //     }
+        // }
         // stage('Deploy Application in Kubernetes') {
         //     steps {
         //         //withCredentials([file(credentialsId: 'kubeconfig-file-id', variable: 'KUBECONFIG')]) {
