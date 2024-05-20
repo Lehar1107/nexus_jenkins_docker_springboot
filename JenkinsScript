@@ -67,10 +67,10 @@ pipeline {
             steps {
                     script {
                         // Print the kubeconfig content for debugging (remove sensitive data before using in production)
-                        bat 'type %KUBECONFIG%'
+                        //bat 'type %KUBECONFIG%'
                         
                         // Validate the kubeconfig
-                        bat "kubectl config view"
+                        //bat "kubectl config view"
                         
                         // Apply the Kubernetes deployment
                         bat "kubectl apply -f new.yaml"

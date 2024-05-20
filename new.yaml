@@ -1,33 +1,32 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment #The name of the Kubernetes Deployment to be created in the Kubernetes cluster
-  labels:
-    app: react-app
-spec:
-  selector:
-    matchLabels:
-      app: react-app
-  template:
-    metadata:
-      labels:
-        app: react-app 
-    spec:
-      containers:
-      - name: react-app #The name of the react.js application container
-        image: nexusImage #The Docker image for building the React.js application container
-        ports:
-        - containerPort: 3000 #The port for the React.js application container
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: service #The name of the Kubernetes Service to be created in the Kubernetes cluster
+  labels:
+    app: nexus
+  name: nexus-service
 spec:
   selector:
-    app: react-app 
-  type: LoadBalancer #Type of the Kubernetes Service
+    app: nexus
   ports:
   - protocol: TCP
-    port: 3000 #Service port
-    targetPort: 3000 #The port for the Re
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+      - name: nginx
+        image: ${nexusImage}
+        
