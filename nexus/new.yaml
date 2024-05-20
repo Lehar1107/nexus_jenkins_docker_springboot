@@ -1,35 +1,32 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: lower-upper
-  labels:
-    app: lower-upper
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: react-app
-  template:
-    metadata:
-      labels:
-        app: lower-upper
-    spec:
-      containers:
-      - name: lower-upper
-        image: 192.168.1.76:8082/docker-hosted/lowerupper:1.0.${BUILD_NUMBER}
-        ports:
-        - containerPort: 8084
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: lower-upper
+  labels:
+    app: new
+  name: nexus-service
 spec:
   selector:
-    app: lower-upper
-  type: LoadBalancer
+    app: new
   ports:
   - protocol: TCP
-    port: 3000
-    targetPort: 3000
-
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      app: new
+  template:
+    metadata:
+      labels:
+        app: new
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        
