@@ -63,7 +63,7 @@ pipeline {
             }
         }
 		
-		stage('Deploy Application in kubernetes') {
+	stage('Deploy Application in kubernetes') {
             steps {
                 script {
                     // sh "sed -i 's#<regex>#<replacement>#g' file_name"
