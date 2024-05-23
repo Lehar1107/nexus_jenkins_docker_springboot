@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image to Nexus') {
+        stage('Push pod image to Nexus') {
             environment {
                 NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
             }
@@ -114,8 +114,6 @@ pipeline {
                     }
                 }
             }
-        }
-        
-
+        }        
     }
 }
