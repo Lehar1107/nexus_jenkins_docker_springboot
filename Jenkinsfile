@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imageName = "lowerupper"
+        imageName = "newbuild"
         imageTag = "1.0.${env.BUILD_NUMBER}"
         nexusUrl = "192.168.1.76:8082"
         nexusRepository = "docker-hosted"
@@ -61,17 +61,6 @@ pipeline {
                     }
                 }
             }
-        }
-		
-        stage('Deploy Application in kubernetes') {
-            steps {
-                script {
-                     // sh "sed -i 's#<regex>#<replacement>#g' file_name"
-                    // kubectl apply -f ./deployment.yaml
-                     // if you apply deployment from kubenets client machine then
-                    bat "kubectl --kubeconfig=.kubeconfig/config apply -f ./new.yaml"
-                 }
-             }
         }
 
     }
