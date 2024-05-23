@@ -65,35 +65,35 @@ pipeline {
 	    stage('Prepare YAML') {
             steps {
                 script {
-                    def yamlContent = readFile('nexus/new.yaml')
+                    def yamlContent = readFile('new.yaml')
                     def modifiedContent = yamlContent.replaceAll('\\$\\{BUILD_NUMBER\\}', env.BUILD_NUMBER)
-                    writeFile file: 'nexus/new.yaml', text: modifiedContent
+                    writeFile file: 'new.yaml', text: modifiedContent
                 }
             }
         }
-	    stage('Create Kubernetes Secret') {
-            environment {
-                NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
-            }
-            steps {
-                script {
-                    bat """
-                    kubectl create secret docker-registry nexus-registry-secret ^
-                    --docker-server=${nexusUrl} ^
-                    --docker-username=${env.NEXUS_USERNAME} ^
-                    --docker-password=${env.NEXUS_PASSWORD} ^
-                    --kubeconfig=C:/Users/LEHAR/.kube/config || echo "Secret already exists"
-                    """
-                }
-            }
-        }
-        stage('List Files') {
-            steps {
-                dir('nexus') {
-                    bat 'dir'
-                }
-            }
-        }
+	    // stage('Create Kubernetes Secret') {
+        //     environment {
+        //         NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+        //     }
+        //     steps {
+        //         script {
+        //             bat """
+        //             kubectl create secret docker-registry nexus-registry-secret ^
+        //             --docker-server=${nexusUrl} ^
+        //             --docker-username=${env.NEXUS_USERNAME} ^
+        //             --docker-password=${env.NEXUS_PASSWORD} ^
+        //             --kubeconfig=C:/Users/LEHAR/.kube/config || echo "Secret already exists"
+        //             """
+        //         }
+        //     }
+        // }
+        // stage('List Files') {
+        //     steps {
+        //         dir('nexus') {
+        //             bat 'dir'
+        //         }
+        //     }
+        // }
 
         stage('Deploy Application in Kubernetes') {
 		    environment {
@@ -101,7 +101,7 @@ pipeline {
             }
             steps {
                 script {
-                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f nexus/new.yaml"
+                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f new.yaml"
                 }
             }
         }	
