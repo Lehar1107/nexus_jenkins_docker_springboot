@@ -62,21 +62,33 @@ pipeline {
                 }
             }
         }
-		
-	stage('Deploy Application in kubernetes') {
+	    stage('Prepare YAML') {
             steps {
                 script {
-				    def yamlContent = readFile('./nexus/new.yaml')
-                    def modifiedContent = yamlContent.replaceAll('\\$\\{BUILD_NUMBER\\}', '25')
-                    writeFile file: './nexus/new.yaml', text: modifiedContent
-					
-                    
-		    //bat (Get-Content -Path "new.yaml") -replace '\$\{BUILD_NUMBER\}', '25' | Set-Content -Path "./nexus/new.yaml"
-                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f ./nexus/new.yaml"
-					
-                 }
-             }
+                    def yamlContent = readFile('nexus/new.yaml')
+                    def modifiedContent = yamlContent.replaceAll('\\$\\{BUILD_NUMBER\\}', env.BUILD_NUMBER)
+                    writeFile file: 'nexus/new.yaml', text: modifiedContent
+                }
+            }
         }
+
+        stage('List Files') {
+            steps {
+                dir('nexus') {
+                    bat 'dir'
+                }
+            }
+        }
+
+        stage('Deploy Application in Kubernetes') {
+            steps {
+                script {
+                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f nexus/new.yaml"
+                }
+            }
+        }	
+	    
+        
 
     }
 }
