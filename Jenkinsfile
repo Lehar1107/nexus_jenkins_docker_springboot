@@ -71,7 +71,23 @@ pipeline {
                 }
             }
         }
-
+	    stage('Create Kubernetes Secret') {
+            environment {
+                NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+            }
+            steps {
+                script {
+                    bat """
+                    kubectl create secret docker-registry nexus-registry-secret ^
+                    --docker-server=${nexusUrl} ^
+                    --docker-username=${env.NEXUS_USERNAME} ^
+                    --docker-password=${env.NEXUS_PASSWORD} ^
+                    --docker-email=<your-email> ^
+                    --kubeconfig=C:/Users/LEHAR/.kube/config || echo "Secret already exists"
+                    """
+                }
+            }
+        }
         stage('List Files') {
             steps {
                 dir('nexus') {
