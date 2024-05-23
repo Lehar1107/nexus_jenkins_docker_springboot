@@ -3,9 +3,9 @@ pipeline {
     environment {
         imageName = "newbuild"
         imageTag = "1.0.${env.BUILD_NUMBER}"
-        nexusUrl = "192.168.1.17:8082"
+        nexusUrl = "192.168.29.17:8082"
         nexusRepository = "docker-hosted"
-        nexusrepourl = "http://192.168.1.17:8082/repository/docker-hosted/"
+        nexusrepourl = "http://192.168.29.17:8082/repository/docker-hosted/"
     }
 
     stages {
