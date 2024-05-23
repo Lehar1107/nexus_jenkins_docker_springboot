@@ -3,9 +3,9 @@ pipeline {
     environment {
         imageName = "newbuild"
         imageTag = "1.0.${env.BUILD_NUMBER}"
-        nexusUrl = "192.168.1.76:8082"
+        nexusUrl = "192.168.1.41:8082"
         nexusRepository = "docker-hosted"
-        nexusrepourl = "http://192.168.1.76:8082/repository/docker-hosted/"
+        nexusrepourl = "http://192.168.1.41:8082/repository/docker-hosted/"
     }
 
     stages {
@@ -61,6 +61,18 @@ pipeline {
                     }
                 }
             }
+        }
+		
+		stage('Deploy Application in kubernetes') {
+            steps {
+                script {
+                     // sh "sed -i 's#<regex>#<replacement>#g' file_name"
+                    // kubectl apply -f ./deployment.yaml
+                     // if you apply deployment from kubenets client machine then
+					 //"C:\Users\LEHAR\.kube\config"
+                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f ./new.yaml"
+                 }
+             }
         }
 
     }
