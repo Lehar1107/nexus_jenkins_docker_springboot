@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Push pod image to Nexus') {
+        stage('Push docker image to Nexus') {
             environment {
                 NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
             }
@@ -90,7 +90,7 @@ pipeline {
                 }
             }
         }	
-	    stage('Push Docker Image to Nexus') {
+	    stage('Push pod Image to Nexus') {
             steps {
                 script {
                     def dockerImage = "${imageName}:${imageTag}"
