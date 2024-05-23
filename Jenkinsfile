@@ -66,13 +66,12 @@ pipeline {
 	stage('Deploy Application in kubernetes') {
             steps {
                 script {
-                    // sh "sed -i 's#<regex>#<replacement>#g' file_name"
-                    // kubectl apply -f ./deployment.yaml
-                    // if you apply deployment from kubenets client machine then
-		    //"C:\Users\LEHAR\.kube\config"
-		    // Replace the BUILD_NUMBER placeholder in the YAML file with the actual build
-		    //bat "sed -i 's/\\\$\\{BUILD_NUMBER\\}/${env.BUILD_NUMBER}/g' new.yaml"
-		    bat (Get-Content -Path "new.yaml") -replace '\$\{BUILD_NUMBER\}', '25' | Set-Content -Path "new.yaml"
+				    def yamlContent = readFile('new.yaml')
+                    def modifiedContent = yamlContent.replaceAll('\\$\\{BUILD_NUMBER\\}', '25')
+                    writeFile file: 'new.yaml', text: modifiedContent
+					
+                    
+		    //bat (Get-Content -Path "new.yaml") -replace '\$\{BUILD_NUMBER\}', '25' | Set-Content -Path "new.yaml"
                     bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f ./new.yaml"
 					
                  }
