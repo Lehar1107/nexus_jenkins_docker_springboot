@@ -63,6 +63,9 @@ pipeline {
             }
         }
 	    stage('Prepare YAML') {
+		 environment {
+             NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+            }
             steps {
                 script {
                     def yamlContent = readFile('nexus/new.yaml')
