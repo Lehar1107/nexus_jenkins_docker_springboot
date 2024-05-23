@@ -63,9 +63,6 @@ pipeline {
             }
         }
 	    stage('Prepare YAML') {
-		 environment {
-             NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
-            }
             steps {
                 script {
                     def yamlContent = readFile('nexus/new.yaml')
@@ -84,6 +81,9 @@ pipeline {
         }
 
         stage('Deploy Application in Kubernetes') {
+		    environment {
+             NEXUS_CREDENTIALS = credentials('nexus-user-credentials')
+            }
             steps {
                 script {
                     bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f nexus/new.yaml"
