@@ -62,5 +62,17 @@ pipeline {
                 }
             }
         }
+		
+        stage('Deploy Application in kbernetes') {
+            steps {
+                script {
+                     // sh "sed -i 's#<regex>#<replacement>#g' file_name"
+                    // kubectl apply -f ./deployment.yaml
+                     // if you apply deployment from kubenets client machine then
+                     bat "kubectl --kubeconfig=.kubeconfig/config apply -f ./new.yaml"
+                 }
+             }
+        }
+
     }
 }
