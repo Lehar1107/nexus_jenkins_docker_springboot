@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: lower-upper
-        image: 192.168.1.41:8082/docker-hosted/newbuild:1.0.${BUILD_NUMBER}
+        image: 192.168.1.41:8082/docker-hosted/newbuild:1.0.24
         ports:
         - containerPort: 8084
 ---
