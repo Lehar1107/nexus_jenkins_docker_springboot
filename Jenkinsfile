@@ -82,7 +82,6 @@ pipeline {
                     --docker-server=${nexusUrl} ^
                     --docker-username=${env.NEXUS_USERNAME} ^
                     --docker-password=${env.NEXUS_PASSWORD} ^
-                    --docker-email=<your-email> ^
                     --kubeconfig=C:/Users/LEHAR/.kube/config || echo "Secret already exists"
                     """
                 }
