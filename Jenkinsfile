@@ -66,13 +66,13 @@ pipeline {
 	stage('Deploy Application in kubernetes') {
             steps {
                 script {
-				    def yamlContent = readFile('new.yaml')
+				    def yamlContent = readFile('./nexus/new.yaml')
                     def modifiedContent = yamlContent.replaceAll('\\$\\{BUILD_NUMBER\\}', '25')
-                    writeFile file: 'new.yaml', text: modifiedContent
+                    writeFile file: './nexus/new.yaml', text: modifiedContent
 					
                     
-		    //bat (Get-Content -Path "new.yaml") -replace '\$\{BUILD_NUMBER\}', '25' | Set-Content -Path "new.yaml"
-                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f ./new.yaml"
+		    //bat (Get-Content -Path "new.yaml") -replace '\$\{BUILD_NUMBER\}', '25' | Set-Content -Path "./nexus/new.yaml"
+                    bat "kubectl --kubeconfig=C:/Users/LEHAR/.kube/config apply -f ./nexus/new.yaml"
 					
                  }
              }
