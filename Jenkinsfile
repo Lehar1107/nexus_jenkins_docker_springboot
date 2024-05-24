@@ -91,30 +91,30 @@ pipeline {
                 }
             }
         }	
-	    stage('Push pod Image to Nexus') {
-            steps {
-                script {
-                    def dockerImage = "${imageName}:${imageTag}"
-					def nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
-					//def nexusUsername = NEXUS_CREDENTIALS?.username
-					//def nexusPassword = NEXUS_CREDENTIALS?.password
+	    // stage('Push pod Image to Nexus') {
+        //     steps {
+        //         script {
+        //             def dockerImage = "${imageName}:${imageTag}"
+		// 			def nexusImage = "${nexusUrl}/${nexusRepository}/${imageName}:${imageTag}"
+		// 			//def nexusUsername = NEXUS_CREDENTIALS?.username
+		// 			//def nexusPassword = NEXUS_CREDENTIALS?.password
 					
-					//echo "Nexus Username: ${nexusUsername}"
-					//echo "Nexus Password: ${nexusPassword}"
+		// 			//echo "Nexus Username: ${nexusUsername}"
+		// 			//echo "Nexus Password: ${nexusPassword}"
 					
-					withCredentials([usernamePassword(credentialsId: 'nexus-user-credentials', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-                        withEnv(["DOCKER_LOGIN=\${NEXUS_USERNAME}", "DOCKER_PASSWORD=\${NEXUS_PASSWORD}"]) {
-                            // echo "DOCKER_USERNAME: ${env.NEXUS_USERNAME}"
-                            // echo "DOCKER_PASSWORD: ${env.NEXUS_PASSWORD}"
-                            // sh 'docker login -u ${env.NEXUS_USERNAME} -p ${env.NEXUS_PASSWORD} ${nexusUrl}'
-                            bat "docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD $nexusrepourl"
-                            bat "docker tag ${dockerImage} ${nexusImage}"
-                            bat "docker push ${nexusImage}"
-                            bat "docker logout $nexusrepourl"
-                        }
-                    }
-                }
-            }
-        }        
+		// 			withCredentials([usernamePassword(credentialsId: 'nexus-user-credentials', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
+        //                 withEnv(["DOCKER_LOGIN=\${NEXUS_USERNAME}", "DOCKER_PASSWORD=\${NEXUS_PASSWORD}"]) {
+        //                     // echo "DOCKER_USERNAME: ${env.NEXUS_USERNAME}"
+        //                     // echo "DOCKER_PASSWORD: ${env.NEXUS_PASSWORD}"
+        //                     // sh 'docker login -u ${env.NEXUS_USERNAME} -p ${env.NEXUS_PASSWORD} ${nexusUrl}'
+        //                     bat "docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD $nexusrepourl"
+        //                     bat "docker tag ${dockerImage} ${nexusImage}"
+        //                     bat "docker push ${nexusImage}"
+        //                     bat "docker logout $nexusrepourl"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }        
     }
 }
