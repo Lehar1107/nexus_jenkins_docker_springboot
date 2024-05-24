@@ -19,8 +19,8 @@ spec:
         image: 192.168.1.41:8082/docker-hosted/newbuild:1.0.24
         ports:
         - containerPort: 8084
-  imagePullSecrets:
-  - name: nexus-docker-secret
+      imagePullSecrets:
+      - name: nexus-docker-secret
 ---
 apiVersion: v1
 kind: Service
@@ -34,4 +34,13 @@ spec:
   - protocol: TCP
     port: 3000
     targetPort: 3000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nexus-docker-secret
+  namespace: argocd
+data:
+  .dockerconfigjson: ew0KICAgICJhdXRocyI6IHsNCiAgICAgICIxOTIuMTY4LjEuNDE6ODA4MiI6IHsNCiAgICAgICAgInVzZXJuYW1lIjogImFkbWluIiwNCiAgICAgICAgInBhc3N3b3JkIjogIjY4MGM0YWYzLWNhYjktNDMyOC04MjBlLWEwODI4YjNlNjFlNSIsDQogICAgICAgICJhdXRoIjogIllXUnRhVzQ2Tmpnd1l6Umhaak10WTJGaU9TMDBNekk0TFRneU1HVXRZVEE0TWpoaU0yVTJNV1UxIg0KICAgICAgfQ0KICAgIH0NCiAgfQ0KDQogIA0K
+type: kubernetes.io/dockerconfigjson
 
