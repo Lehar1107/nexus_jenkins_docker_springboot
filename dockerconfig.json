@@ -3,7 +3,7 @@
       "192.168.1.41:8082": {
         "username": "admin",
         "password": "680c4af3-cab9-4328-820e-a0828b3e61e5",
-        "auth": "base64(username:password)"
+        "auth": "YWRtaW46NjgwYzRhZjMtY2FiOS00MzI4LTgyMGUtYTA4MjhiM2U2MWU1"
       }
     }
   }
