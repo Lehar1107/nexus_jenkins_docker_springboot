@@ -1,32 +1,38 @@
+# Service for Nginx
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: nexus
-  name: nexus-service
-spec:
-  selector:
-    app: nexus
-  ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nexus
+    app: nginx
+  name: nginx-service
   namespace: argocd
 spec:
   selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+# Deployment for Nginx
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
     matchLabels:
-      app: nexus
+      app: nginx
   template:
     metadata:
       labels:
-        app: nexus
+        app: nginx
     spec:
       containers:
       - name: nginx
-        image: nginx
-        
+        image: nginx:latest
+        ports:
+        - containerPort: 80
