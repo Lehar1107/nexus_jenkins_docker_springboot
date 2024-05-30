@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: logstash
-        image: 192.168.1.41:8082/docker-hosted/newbuild:1.0.${BUILD_NUMBER}
+        image: 192.168.1.41:8082/docker-hosted/logstash:1.0.${BUILD_NUMBER}
         ports:
         - containerPort: 5044  # Port for receiving logs from other containers
           name: logstash

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: elasticsearch
-        image: 192.168.1.41:8082/docker-hosted/newbuild:1.0.${BUILD_NUMBER}
+        image: 192.168.1.41:8082/docker-hosted/elasticsearch:1.0.${BUILD_NUMBER}
         env:
         - name: ES_JAVA_OPTS
           value: "-Xms512m -Xmx512m"
