@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: logstash
-        image: 192.168.1.41:8082/docker-hosted/logstash:1.0.${BUILD_NUMBER}
+        image: 192.168.1.41:8082/docker-hosted/logstash:7.15.${BUILD_NUMBER}
         ports:
         - containerPort: 5044  # Port for receiving logs from other containers
           name: logstash
@@ -66,7 +66,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: nexus-docker-secret
-  namespace: argocd
+  namespace: elastic-deploy
 data:
   .dockerconfigjson: ew0KICAgICJhdXRocyI6IHsNCiAgICAgICIxOTIuMTY4LjEuNDE6ODA4MiI6IHsNCiAgICAgICAgInVzZXJuYW1lIjogImFkbWluIiwNCiAgICAgICAgInBhc3N3b3JkIjogIjY4MGM0YWYzLWNhYjktNDMyOC04MjBlLWEwODI4YjNlNjFlNSIsDQogICAgICAgICJhdXRoIjogIllXUnRhVzQ2Tmpnd1l6Umhaak10WTJGaU9TMDBNekk0TFRneU1HVXRZVEE0TWpoaU0yVTJNV1UxIg0KICAgICAgfQ0KICAgIH0NCiAgfQ0KDQogIA0K
 type: kubernetes.io/dockerconfigjson
